@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-3OV72XIM.js";
 
-// ../../../node_modules/howler/dist/howler.js
+// node_modules/howler/dist/howler.js
 var require_howler = __commonJS({
-  "../../../node_modules/howler/dist/howler.js"(exports) {
+  "node_modules/howler/dist/howler.js"(exports) {
     (function() {
       "use strict";
       var HowlerGlobal2 = function() {

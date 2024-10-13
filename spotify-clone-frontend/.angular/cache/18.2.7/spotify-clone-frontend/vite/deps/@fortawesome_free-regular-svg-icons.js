@@ -1,6 +1,6 @@
 import "./chunk-3OV72XIM.js";
 
-// ../../../node_modules/@fortawesome/free-regular-svg-icons/index.mjs
+// node_modules/@fortawesome/free-regular-svg-icons/index.mjs
 var prefix = "far";
 var faTrashCan = {
   prefix: "far",
