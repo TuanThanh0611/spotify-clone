@@ -3,6 +3,7 @@ package com.ivo.spotify_clone_backend.controler;
 import com.ivo.spotify_clone_backend.dto.response.ReadUser;
 import com.ivo.spotify_clone_backend.repository.UserRepository;
 import com.ivo.spotify_clone_backend.service.UserService;
+import com.ivo.spotify_clone_backend.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
-    UserService userService;
+    UserServiceImpl userService;
     ClientRegistration registration;
-    public AuthController(UserService userService, ClientRegistrationRepository registrations) {
+    public AuthController(UserServiceImpl userService, ClientRegistrationRepository registrations) {
         this.userService = userService;
         this.registration = registrations.findByRegistrationId("okta");
     }
