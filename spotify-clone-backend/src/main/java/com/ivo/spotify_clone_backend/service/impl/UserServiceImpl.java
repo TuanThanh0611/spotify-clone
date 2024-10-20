@@ -5,6 +5,7 @@ import com.ivo.spotify_clone_backend.entity.User;
 import com.ivo.spotify_clone_backend.mapper.UserMapper;
 import com.ivo.spotify_clone_backend.repository.UserRepository;
 import com.ivo.spotify_clone_backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,15 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     UserRepository userRepository;
+    @Autowired
     UserMapper mapper;
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.mapper = userMapper;
+    }
 
     @Override
     public void synchronizeUser(OAuth2User oAuth2User) {
@@ -47,24 +55,60 @@ public class UserServiceImpl implements UserService {
         return mapper.readUserDTOToUser(user);
     }
 
-    @Override
     public void updateUser(User user) {
-
+        Optional<User> userToUpdateOpt = userRepository.findUsersByEmail(user.getEmail());
+        if (userToUpdateOpt.isPresent()) {
+            User userToUpdate = userToUpdateOpt.get();
+            userToUpdate.setEmail(user.getEmail());
+            userToUpdate.setImageUrl(user.getImageUrl());
+            userToUpdate.setLastName(user.getLastName());
+            userToUpdate.setFirstName(user.getFirstName());
+            userRepository.saveAndFlush(userToUpdate);
+        }
     }
 
-    @Override
     public User mapOauth2AttributesToUser(Map<String, Object> attributes) {
-        return null;
+        User user = new User();
+        String sub = String.valueOf(attributes.get("sub"));
+
+        String username = null;
+
+        if (attributes.get("preferred_username") != null) {
+            username = ((String) attributes.get("preferred_username")).toLowerCase();
+        }
+
+        if (attributes.get("given_name") != null) {
+            user.setFirstName((String) attributes.get("given_name"));
+        } else if (attributes.get("name") != null) {
+            user.setFirstName((String) attributes.get("name"));
+        }
+
+        if (attributes.get("family_name") != null) {
+            user.setLastName((String) attributes.get("family_name"));
+        }
+
+        if (attributes.get("email") != null) {
+            user.setEmail((String) attributes.get("email"));
+        } else if (sub.contains("|") && (username != null && username.contains("@"))) {
+            user.setEmail(username);
+        } else {
+            user.setEmail(sub);
+        }
+
+        if (attributes.get("picture") != null) {
+            user.setImageUrl((String) attributes.get("picture"));
+        }
+
+        return user;
     }
 
-    @Override
     public Optional<ReadUser> getByEmail(String email) {
-        return Optional.empty();
+        Optional<User> oneByEmail = userRepository.findUsersByEmail(email);
+        return oneByEmail.map(mapper::readUserDTOToUser);
     }
 
-    @Override
     public boolean isAuthenticated() {
-        return false;
+        return !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser");
     }
 
 

@@ -11,6 +11,9 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Entity
+@Data
+@Setter
+@Getter
 @Table(name="spotìy_user")
 public class User extends AbstractAuditingEntity<Long> {
     @Id
@@ -51,5 +54,29 @@ public class User extends AbstractAuditingEntity<Long> {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

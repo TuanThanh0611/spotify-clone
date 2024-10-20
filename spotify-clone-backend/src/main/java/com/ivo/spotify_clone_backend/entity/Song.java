@@ -37,4 +37,52 @@ public class Song implements Serializable {
 
     @Column(name = "cover_content_type", nullable = false)
     String coverContentType;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UUID getPublicId() {
+        return publicId;
+    }
+
+    public void setPublicId(UUID publicId) {
+        this.publicId = publicId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public byte[] getCover() {
+        return cover;
+    }
+
+    public void setCover(byte[] cover) {
+        this.cover = cover;
+    }
+
+    public String getCoverContentType() {
+        return coverContentType;
+    }
+
+    public void setCoverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
+    }
 }

@@ -1,15 +1,10 @@
 package com.ivo.spotify_clone_backend.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-@Setter
-@Getter
 public class FavoriteId implements Serializable {
 
     UUID songPublicId;
@@ -24,7 +19,21 @@ public class FavoriteId implements Serializable {
         this.userEmail = userEmail;
     }
 
+    public UUID getSongPublicId() {
+        return songPublicId;
+    }
 
+    public void setSongPublicId(UUID songPublicId) {
+        this.songPublicId = songPublicId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -38,5 +47,4 @@ public class FavoriteId implements Serializable {
     public int hashCode() {
         return Objects.hash(songPublicId, userEmail);
     }
-
 }

@@ -12,10 +12,10 @@ import org.mapstruct.Mapping;
 public interface SongMapper {
 
 
-    Song saveSongDTOToSong(SaveSong saveSongDTO);
+    Song saveSongToSong(SaveSong saveSongDTO);
 
 
-    ReadSongInfo songToReadSongInfoDTO(Song song);
+    ReadSongInfo songToReadSongInfo(Song song);
     default SongTitleRE stringToSongTitleVO(String title){
         return new SongTitleRE(title);
     }
