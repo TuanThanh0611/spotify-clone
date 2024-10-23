@@ -5,6 +5,9 @@ import com.ivo.spotify_clone_backend.entity.User;
 import com.ivo.spotify_clone_backend.mapper.UserMapper;
 import com.ivo.spotify_clone_backend.repository.UserRepository;
 import com.ivo.spotify_clone_backend.service.UserService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -14,17 +17,19 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
     UserMapper mapper;
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.mapper = userMapper;
-    }
+@Autowired
+public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    this.userRepository = userRepository;
+    this.mapper = userMapper;
+}
+
 
     @Override
     public void synchronizeUser(OAuth2User oAuth2User) {
